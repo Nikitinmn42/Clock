@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<Pane style="-fx-background-color: transparent" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.widget.clock.Controller">
+      <Label fx:id="clockLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutY="-3.0" onMouseClicked="#LabelOnClick" style="-fx-background-color: transparent;" text="Sample" textAlignment="CENTER" textFill="#c8c8c8" wrapText="true">
+      <font>
+         <Font size="20.0" />
+      </font>
+      <effect>
+         <DropShadow blurType="GAUSSIAN" height="7.0" radius="3.0" width="7.0">
+            <color>
+               <Color opacity="0.7" />
+            </color>
+         </DropShadow>
+      </effect></Label>
+</Pane>
