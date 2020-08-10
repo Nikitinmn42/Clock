@@ -20,11 +20,9 @@ public class ClockController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Platform.setImplicitExit(true);
         // Schedule tasks for updating time
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss"); // for tests show seconds
         Runnable updateClock = () -> {
             try {
                 Platform.runLater(() -> clockLabel.setText(LocalDateTime.now().format(formatter)));
@@ -32,14 +30,29 @@ public class ClockController implements Initializable {
                 Logger.getGlobal().log(Level.SEVERE, "Failed to update time.", e);
             }
         };
-        executorService.scheduleAtFixedRate(updateClock, 0, 300, TimeUnit.MILLISECONDS);
+        executorService.scheduleAtFixedRate(updateClock, 0, 1, TimeUnit.SECONDS);
     }
 
     public void LabelOnClick(MouseEvent mouseEvent) {
         // Triple click for exit
         if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 3) {
-            Platform.exit();
-            System.exit(0);
+            applicationExit();
+        // Workaround for correct appearance of context menu
+        } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+            ClockFX.getStage().requestFocus();
         }
+    }
+
+    public void settingsMenuAction() {
+        // TODO: make settings
+    }
+
+    public void exitMenuAction() {
+        applicationExit();
+    }
+
+    private void applicationExit() {
+        Platform.exit();
+        System.exit(0);
     }
 }

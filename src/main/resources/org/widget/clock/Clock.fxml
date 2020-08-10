@@ -21,5 +21,14 @@
       </effect>
       <padding>
          <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
-      </padding></Label>
+      </padding>
+      <contextMenu>
+         <ContextMenu style="-fx-min-width: 100" >
+           <items>
+             <MenuItem mnemonicParsing="false" text="Settings" onAction="#settingsMenuAction" />
+             <MenuItem mnemonicParsing="false" text="Exit" onAction="#exitMenuAction" />
+           </items>
+         </ContextMenu>
+      </contextMenu>
+      </Label>
 </Pane>

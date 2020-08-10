@@ -15,12 +15,12 @@ public class Main {
         try {
             new File("/tmp/org.widget.clock").mkdirs();
             LogManager.getLogManager()
-                    .readConfiguration(FXApplication.class.getResourceAsStream("logging.properties"));
+                    .readConfiguration(ClockFX.class.getResourceAsStream("logging.properties"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         // Starting Application
-        FXApplication.main(args);
+        ClockFX.main(args);
     }
 }
