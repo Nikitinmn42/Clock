@@ -16,7 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClockController implements Initializable {
-    @FXML Label clockLabel;
+    @FXML private Label clockLabel;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,13 +36,29 @@ public class ClockController implements Initializable {
         executorService.scheduleAtFixedRate(updateClock, 0, 1, TimeUnit.SECONDS);
     }
 
-    public void LabelOnClick(MouseEvent mouseEvent) {
+    public void labelOnClick(MouseEvent mouseEvent) {
         // Triple click for exit
         if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 3) {
             applicationExit();
         // Workaround for correct appearance of context menu
         } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-            ClockFX.getStage().requestFocus();
+            ClockFX.getBaseStage().requestFocus();
+        }
+    }
+
+    public void labelOnDragged(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            ClockFX.getClockWindow().setX(event.getScreenX() + xOffset);
+            ClockFX.getClockWindow().setY(event.getScreenY() + yOffset);
+            ClockFX.getBaseStage().setX(event.getScreenX() + xOffset);
+            ClockFX.getBaseStage().setY(event.getScreenY() + yOffset);
+        }
+    }
+
+    public void labelOnPressed(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            xOffset = ClockFX.getClockWindow().getX() - event.getScreenX();
+            yOffset = ClockFX.getClockWindow().getY() - event.getScreenY();
         }
     }
 
