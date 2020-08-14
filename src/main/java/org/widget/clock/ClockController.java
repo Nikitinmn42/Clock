@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Window;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -17,6 +18,10 @@ import java.util.logging.Logger;
 
 public class ClockController implements Initializable {
     @FXML private Label clockLabel;
+
+    private ClockFX application;
+    private Window baseStage;
+    private Window clockWindow;
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -42,28 +47,28 @@ public class ClockController implements Initializable {
             applicationExit();
         // Workaround for correct appearance of context menu
         } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-            ClockFX.getBaseStage().requestFocus();
+            baseStage.requestFocus();
         }
     }
 
     public void labelOnDragged(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
-            ClockFX.getClockWindow().setX(event.getScreenX() + xOffset);
-            ClockFX.getClockWindow().setY(event.getScreenY() + yOffset);
-            ClockFX.getBaseStage().setX(event.getScreenX() + xOffset);
-            ClockFX.getBaseStage().setY(event.getScreenY() + yOffset);
+            clockWindow.setX(event.getScreenX() + xOffset);
+            clockWindow.setY(event.getScreenY() + yOffset);
+            baseStage.setX(event.getScreenX() + xOffset);
+            baseStage.setY(event.getScreenY() + yOffset);
         }
     }
 
     public void labelOnPressed(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
-            xOffset = ClockFX.getClockWindow().getX() - event.getScreenX();
-            yOffset = ClockFX.getClockWindow().getY() - event.getScreenY();
+            xOffset = clockWindow.getX() - event.getScreenX();
+            yOffset = clockWindow.getY() - event.getScreenY();
         }
     }
 
     public void settingsMenuAction() {
-        // TODO: make settings
+        application.showSettings();
     }
 
     public void exitMenuAction() {
@@ -73,5 +78,17 @@ public class ClockController implements Initializable {
     private void applicationExit() {
         Platform.exit();
         System.exit(0);
+    }
+
+    public void setApplication(ClockFX application) {
+        this.application = application;
+    }
+
+    public void setBaseStage(Window baseStage) {
+        this.baseStage = baseStage;
+    }
+
+    public void setClockWindow(Window clockWindow) {
+        this.clockWindow = clockWindow;
     }
 }

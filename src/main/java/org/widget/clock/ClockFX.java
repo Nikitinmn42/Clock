@@ -7,13 +7,14 @@ import javafx.scene.Parent;
 import javafx.stage.*;
 
 public class ClockFX extends Application {
-    private static Window baseStage;
-    private static Window clockWindow;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        baseStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("Clock.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Clock.fxml"));
+        Parent root = loader.load();
+        ClockController clockController = loader.getController();
+        clockController.setApplication(this);
+        clockController.setBaseStage(primaryStage);
         primaryStage.initStyle(StageStyle.UTILITY); // UTILITY stage doesn't show TaskBar icon
         primaryStage.setOpacity(0); // This stage is invisible
         primaryStage.setMaxHeight(1);
@@ -21,7 +22,7 @@ public class ClockFX extends Application {
         primaryStage.show();
         // To make window without task bar icon, title and borders use Popup
         Popup clockPopup = new Popup();
-        clockWindow = clockPopup;
+        clockController.setClockWindow(clockPopup);
         clockPopup.getContent().add(root);
         clockPopup.show(primaryStage);
         clockPopup.setX(1380);
@@ -38,11 +39,7 @@ public class ClockFX extends Application {
         launch(args);
     }
 
-    public static Window getBaseStage() {
-        return baseStage;
-    }
+    public void showSettings() {
 
-    public static Window getClockWindow() {
-        return clockWindow;
     }
 }
