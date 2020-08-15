@@ -42,4 +42,9 @@ public class ClockFX extends Application {
     public void showSettings() {
 
     }
+
+    void applicationExit() {
+        Platform.exit();
+        System.exit(0);
+    }
 }

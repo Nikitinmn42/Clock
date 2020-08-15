@@ -41,17 +41,19 @@ public class ClockController implements Initializable {
         executorService.scheduleAtFixedRate(updateClock, 0, 1, TimeUnit.SECONDS);
     }
 
-    public void labelOnClick(MouseEvent mouseEvent) {
+    @FXML
+    private void labelOnClick(MouseEvent mouseEvent) {
         // Triple click for exit
         if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 3) {
-            applicationExit();
+            application.applicationExit();
         // Workaround for correct appearance of context menu
         } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
             baseStage.requestFocus();
         }
     }
 
-    public void labelOnDragged(MouseEvent event) {
+    @FXML
+    private void labelOnDragged(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
             clockWindow.setX(event.getScreenX() + xOffset);
             clockWindow.setY(event.getScreenY() + yOffset);
@@ -60,24 +62,22 @@ public class ClockController implements Initializable {
         }
     }
 
-    public void labelOnPressed(MouseEvent event) {
+    @FXML
+    private void labelOnPressed(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
             xOffset = clockWindow.getX() - event.getScreenX();
             yOffset = clockWindow.getY() - event.getScreenY();
         }
     }
 
-    public void settingsMenuAction() {
+    @FXML
+    private void settingsMenuAction() {
         application.showSettings();
     }
 
-    public void exitMenuAction() {
-        applicationExit();
-    }
-
-    private void applicationExit() {
-        Platform.exit();
-        System.exit(0);
+    @FXML
+    private void exitMenuAction() {
+        application.applicationExit();
     }
 
     public void setApplication(ClockFX application) {
