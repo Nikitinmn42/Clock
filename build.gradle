@@ -19,6 +19,7 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'org.openjfx:javafx:14'
+    compile group: 'net.sourceforge.cssparser', name: 'cssparser', version: '0.9.27'
 }
 
 application {
